@@ -4,6 +4,10 @@ namespace BancoDoacaoSangue.Core.Entities
 {
     public class EstoqueSangue : EntityBase
     {
+        public EstoqueSangue()
+        {
+            
+        }
         public EstoqueSangue(string? tipoSanguineo, string? fatorRh, int? quantidadeMl)
         {
             TipoSanguineo = tipoSanguineo;

@@ -4,6 +4,10 @@ namespace BancoDoacaoSangue.Core.Entities
 {
     public class Endereco : EntityBase
     {
+        public Endereco()
+        {
+            
+        }
         public Endereco(string? logradouro, string? cidade, string? estado, string? cep, Doador? doador, int doadorId)
         {
             Logradouro = logradouro;
