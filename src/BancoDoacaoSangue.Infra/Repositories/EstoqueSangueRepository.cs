@@ -16,7 +16,7 @@ namespace BancoDoacaoSangue.Infra.Repositories
         {
             return await DbContext.EstoqueSangue
                 .AsNoTracking()
-                .FirstOrDefaultAsync(u => u.FatorRh == fatorRh && u.FatorRh == fatorRh);
+                .FirstOrDefaultAsync(u => u.TipoSanguineo == tipoSanguineo && u.FatorRh == fatorRh);
         }
     }
 }

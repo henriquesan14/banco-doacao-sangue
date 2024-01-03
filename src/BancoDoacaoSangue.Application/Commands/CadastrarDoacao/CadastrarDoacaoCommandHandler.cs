@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using Azure.Core;
 using BancoDoacaoSangue.Core.Entities;
 using BancoDoacaoSangue.Core.Exceptions;
 using BancoDoacaoSangue.Core.Repositories;
@@ -22,6 +21,10 @@ namespace BancoDoacaoSangue.Application.Commands.CadastrarDoacao
         public async Task<int> Handle(CadastrarDoacaoCommand request, CancellationToken cancellationToken)
         {
             var doador = await _unitOfWork.Doadores.GetByIdAsync(request.DoadorId!.Value);
+            if(doador is null)
+            {
+                throw new NotFoundException($"Não existe doador com o id {request.DoadorId}");
+            }
             var doacoes = await _unitOfWork.Doacoes.GetLastDoacaoByDoador(request.DoadorId.Value);
             ValidaDoacao(doador, doacoes);
             var entity = _mapper.Map<Doacao>(request);
