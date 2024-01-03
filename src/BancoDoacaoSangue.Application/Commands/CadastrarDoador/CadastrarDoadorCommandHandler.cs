@@ -4,7 +4,6 @@ using BancoDoacaoSangue.Core.Entities;
 using BancoDoacaoSangue.Core.Repositories;
 using BancoDoacaoSangue.Infra.Services;
 using MediatR;
-using Refit;
 
 namespace BancoDoacaoSangue.Application.Commands.CadastrarDoador
 {
@@ -23,17 +22,8 @@ namespace BancoDoacaoSangue.Application.Commands.CadastrarDoador
 
         public async Task<int> Handle(CadastrarDoadorCommand request, CancellationToken cancellationToken)
         {
-            ResponseCepDto responseCep;
-            try
-            {
-                responseCep = await _cepService.BuscaCep(request.Cep!);
+            ResponseCepDto responseCep = await _cepService.BuscaCep(request.Cep!);
 
-            }catch(ApiException)
-            {
-                throw new Exception("Erro ao consumir api do ViaCep");
-            }
-            
-            
             var entity = _mapper.Map<Doador>(request);
             entity.Endereco?.SetEnderecoViaCep(responseCep);
             var result = await _doadorRepository.AddAsync(entity);

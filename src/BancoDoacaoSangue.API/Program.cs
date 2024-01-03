@@ -1,6 +1,10 @@
 using BancoDoacaoSangue.API.Extensions;
+using BancoDoacaoSangue.API.Filters;
+using BancoDoacaoSangue.Application.Commands.CadastrarDoacao;
 using BancoDoacaoSangue.Infra.Persistence;
 using BancoDoacaoSangue.Infra.Services;
+using FluentValidation;
+using FluentValidation.AspNetCore;
 using Microsoft.EntityFrameworkCore;
 using Refit;
 
@@ -23,7 +27,14 @@ builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(AppDomain.
 
 builder.Services.JsonSerializationConfig();
 
-builder.Services.AddControllers();
+builder.Services.AddControllers(options =>
+{
+    options.Filters.Add(typeof(ValidationFilter));
+    options.Filters.Add(typeof(CustomExceptionFilter));
+});
+builder.Services.AddFluentValidationAutoValidation();
+builder.Services.AddFluentValidationClientsideAdapters();
+builder.Services.AddValidatorsFromAssemblyContaining<CadastrarDoacaoCommand>();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
