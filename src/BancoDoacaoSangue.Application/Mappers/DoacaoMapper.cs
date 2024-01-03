@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using BancoDoacaoSangue.Application.Commands.CadastrarDoacao;
+using BancoDoacaoSangue.Application.ViewModels;
 using BancoDoacaoSangue.Core.Entities;
 
 namespace BancoDoacaoSangue.Application.Mappers
@@ -9,6 +10,7 @@ namespace BancoDoacaoSangue.Application.Mappers
         public DoacaoMapper()
         {
             CreateMap<CadastrarDoacaoCommand, Doacao>().ReverseMap();
+            CreateMap<DoacaoViewModel, Doacao>().ReverseMap();
         }
     }
 }
