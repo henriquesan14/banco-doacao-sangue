@@ -25,6 +25,10 @@ namespace BancoDoacaoSangue.API.Filters
             {
                 statusCode = (int)HttpStatusCode.BadRequest;
             }
+            else if (exception is DoadorValidationException)
+            {
+                statusCode = (int)HttpStatusCode.BadRequest;
+            }
             // Aqui você pode adicionar mais blocos para outros tipos de exceções e definir status code diferentes conforme necessário
 
             var result = new ObjectResult(new

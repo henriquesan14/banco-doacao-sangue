@@ -4,7 +4,7 @@
     {
         IDoadorRepository Doadores { get; }
         IDoacaoRepository Doacoes { get; }
-        IEstoqueSangueRepository Estoque {  get; }
+        IEstoqueSangueRepository EstoqueSangue {  get; }
         Task<int> CompleteAsync();
     }
 }

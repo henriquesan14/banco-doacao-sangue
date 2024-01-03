@@ -2,6 +2,7 @@
 using BancoDoacaoSangue.Core.Repositories;
 using BancoDoacaoSangue.Infra.Persistence;
 using BancoDoacaoSangue.Infra.Repositories.Base;
+using Microsoft.EntityFrameworkCore;
 
 namespace BancoDoacaoSangue.Infra.Repositories
 {
@@ -9,6 +10,13 @@ namespace BancoDoacaoSangue.Infra.Repositories
     {
         public EstoqueSangueRepository(DoacaoBancoSangueContext dbContext) : base(dbContext)
         {
+        }
+
+        public async Task<EstoqueSangue> GetByTipoSanguineoFatorRh(string tipoSanguineo, string fatorRh)
+        {
+            return await DbContext.EstoqueSangue
+                .AsNoTracking()
+                .FirstOrDefaultAsync(u => u.FatorRh == fatorRh && u.FatorRh == fatorRh);
         }
     }
 }

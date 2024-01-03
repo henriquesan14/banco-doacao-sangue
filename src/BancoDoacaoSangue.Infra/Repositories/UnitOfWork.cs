@@ -12,14 +12,14 @@ namespace BancoDoacaoSangue.Infra.Repositories
             _dbContext = dbContext;
             Doadores = doadores;
             Doacoes = doacoes;
-            Estoque = estoque;
+            EstoqueSangue = estoque;
         }
 
         public IDoadorRepository Doadores { get; }
 
         public IDoacaoRepository Doacoes { get; }
 
-        public IEstoqueSangueRepository Estoque { get; }
+        public IEstoqueSangueRepository EstoqueSangue { get; }
 
         public async Task<int> CompleteAsync()
         {
