@@ -1,4 +1,5 @@
-﻿using BancoDoacaoSangue.Core.Entities;
+﻿using BancoDoacaoSangue.Core.DTOs;
+using BancoDoacaoSangue.Core.Entities;
 using BancoDoacaoSangue.Core.Repositories;
 using BancoDoacaoSangue.Infra.Persistence;
 using BancoDoacaoSangue.Infra.Repositories.Base;
@@ -17,6 +18,18 @@ namespace BancoDoacaoSangue.Infra.Repositories
             return await DbContext.EstoqueSangue
                 .AsNoTracking()
                 .FirstOrDefaultAsync(u => u.TipoSanguineo == tipoSanguineo && u.FatorRh == fatorRh);
+        }
+
+        public async Task<List<RelatorioEstoqueSangueDto>> GetByQuantidadePorTipoSanguineo()
+        {
+            var gruposPorTipoSanguineo = await DbContext.EstoqueSangue.AsNoTracking()
+            .GroupBy(item => item.TipoSanguineo)
+            .Select(grupo => new RelatorioEstoqueSangueDto
+            {
+                TipoSanguineo = grupo.Key!,
+                Quantidade = grupo.Count() // Aqui você pode usar outras funções de agregação se necessário
+            }).ToListAsync();
+            return gruposPorTipoSanguineo;
         }
     }
 }

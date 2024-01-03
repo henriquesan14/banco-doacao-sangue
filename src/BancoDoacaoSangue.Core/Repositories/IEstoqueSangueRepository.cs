@@ -1,4 +1,5 @@
-﻿using BancoDoacaoSangue.Core.Entities;
+﻿using BancoDoacaoSangue.Core.DTOs;
+using BancoDoacaoSangue.Core.Entities;
 using BancoDoacaoSangue.Core.Repositories.Base;
 
 namespace BancoDoacaoSangue.Core.Repositories
@@ -6,5 +7,6 @@ namespace BancoDoacaoSangue.Core.Repositories
     public interface IEstoqueSangueRepository : IAsyncRepository<EstoqueSangue>
     {
         Task<EstoqueSangue> GetByTipoSanguineoFatorRh(string tipoSanguineo, string fatorRh);
+        Task<List<RelatorioEstoqueSangueDto>> GetByQuantidadePorTipoSanguineo();
     }
 }
