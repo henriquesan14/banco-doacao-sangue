@@ -1,4 +1,5 @@
-﻿using BancoDoacaoSangue.Core.Entities.Base;
+﻿using BancoDoacaoSangue.Core.DTOs;
+using BancoDoacaoSangue.Core.Entities.Base;
 
 namespace BancoDoacaoSangue.Core.Entities
 {
@@ -22,5 +23,15 @@ namespace BancoDoacaoSangue.Core.Entities
         public string? Estado { get; set; }
         public string? Cep { get; set; }
         public virtual Doador? Doador { get; set; }
+
+        public void SetEnderecoViaCep(ResponseCepDto responseCep)
+        {
+            if(responseCep != null)
+            {
+                Logradouro = responseCep.Logradouro;
+                Cidade = responseCep.Localidade;
+                Estado = responseCep.Uf;
+            }
+        }
     }
 }

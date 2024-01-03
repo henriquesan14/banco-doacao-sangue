@@ -1,6 +1,8 @@
 using BancoDoacaoSangue.API.Extensions;
 using BancoDoacaoSangue.Infra.Persistence;
+using BancoDoacaoSangue.Infra.Services;
 using Microsoft.EntityFrameworkCore;
+using Refit;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,6 +12,12 @@ builder.Services.AddDbContext<DoacaoBancoSangueContext>(options => options.UseSq
 
 builder.Services.AutoMapperConfig();
 builder.Services.AddInfrastructure();
+
+builder.Services.AddRefitClient<ICepService>().ConfigureHttpClient(c =>
+{
+    var urlApi = builder.Configuration["CepApi:Url"];
+    c.BaseAddress = new Uri(urlApi);
+});
 
 builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(AppDomain.CurrentDomain.GetAssemblies()));
 

@@ -5,7 +5,7 @@ namespace BancoDoacaoSangue.Application.Commands.CadastrarDoador
     public class CadastrarDoadorCommand : IRequest<int>
     {
         public CadastrarDoadorCommand(string? nomeCompleto, string? email, DateTime? dataNascimento, string? genero,
-            decimal? peso, string? tipoSanguineo, string? fatorRh, string? logradouro, string? cidade, string? estado, string? cep)
+            decimal? peso, string? tipoSanguineo, string? fatorRh, string? cep)
         {
             NomeCompleto = nomeCompleto;
             Email = email;
@@ -14,9 +14,6 @@ namespace BancoDoacaoSangue.Application.Commands.CadastrarDoador
             Peso = peso;
             TipoSanguineo = tipoSanguineo;
             FatorRh = fatorRh;
-            Logradouro = logradouro;
-            Cidade = cidade;
-            Estado = estado;
             Cep = cep;
         }
 
@@ -27,9 +24,7 @@ namespace BancoDoacaoSangue.Application.Commands.CadastrarDoador
         public decimal? Peso { get; set; }
         public string? TipoSanguineo { get; set; }
         public string? FatorRh { get; set; }
-        public string? Logradouro { get; set; }
-        public string? Cidade { get; set; }
-        public string? Estado { get; set; }
+
         public string? Cep { get; set; }
     }
 }

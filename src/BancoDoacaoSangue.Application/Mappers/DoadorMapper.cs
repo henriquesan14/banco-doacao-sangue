@@ -12,9 +12,6 @@ namespace BancoDoacaoSangue.Application.Mappers
             .ForMember(dest => dest.Endereco, opt =>
                 opt.MapFrom(src => new Endereco
                 {
-                    Logradouro = src.Logradouro,
-                    Cidade = src.Cidade,
-                    Estado = src.Estado,
                     Cep = src.Cep,
                 })).ReverseMap();
         }
