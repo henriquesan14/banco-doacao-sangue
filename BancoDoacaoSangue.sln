@@ -3,13 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.8.34330.188
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BancoDoacaoSangue.Core", "src\BancoDoacaoSangue.Core\BancoDoacaoSangue.Core.csproj", "{51D82857-394A-45D2-8F24-18996899A548}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BancoDoacaoSangue.Core", "src\BancoDoacaoSangue.Core\BancoDoacaoSangue.Core.csproj", "{51D82857-394A-45D2-8F24-18996899A548}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BancoDoacaoSangue.Infra", "src\BancoDoacaoSangue.Infra\BancoDoacaoSangue.Infra.csproj", "{9DBA199E-7C7D-423D-AFD2-35796BFA8836}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BancoDoacaoSangue.Infra", "src\BancoDoacaoSangue.Infra\BancoDoacaoSangue.Infra.csproj", "{9DBA199E-7C7D-423D-AFD2-35796BFA8836}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BancoDoacaoSangue.Application", "src\BancoDoacaoSangue.Application\BancoDoacaoSangue.Application.csproj", "{DD75D59D-4943-4634-9A46-0C1056C0B364}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BancoDoacaoSangue.Application", "src\BancoDoacaoSangue.Application\BancoDoacaoSangue.Application.csproj", "{DD75D59D-4943-4634-9A46-0C1056C0B364}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BancoDoacaoSangue.API", "src\BancoDoacaoSangue.API\BancoDoacaoSangue.API.csproj", "{8D43E037-9A5E-4B67-8571-82B98EC7CD5D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BancoDoacaoSangue.API", "src\BancoDoacaoSangue.API\BancoDoacaoSangue.API.csproj", "{8D43E037-9A5E-4B67-8571-82B98EC7CD5D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BancoDoacaoSangue.Tests", "src\BancoDoacaoSangue.Tests\BancoDoacaoSangue.Tests.csproj", "{85BBD8B6-7320-4A8A-A04D-8B37B4BA1CE9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{8D43E037-9A5E-4B67-8571-82B98EC7CD5D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8D43E037-9A5E-4B67-8571-82B98EC7CD5D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8D43E037-9A5E-4B67-8571-82B98EC7CD5D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{85BBD8B6-7320-4A8A-A04D-8B37B4BA1CE9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{85BBD8B6-7320-4A8A-A04D-8B37B4BA1CE9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{85BBD8B6-7320-4A8A-A04D-8B37B4BA1CE9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{85BBD8B6-7320-4A8A-A04D-8B37B4BA1CE9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
