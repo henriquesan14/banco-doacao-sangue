@@ -23,8 +23,8 @@ namespace BancoDoacaoSangue.Core.Repositories.Base
 
         Task<T> AddAsync(T entity);
 
-        Task UpdateAsync(T entity);
+        void UpdateAsync(T entity);
 
-        Task DeleteAsync(T entity);
+        void DeleteAsync(T entity);
     }
 }

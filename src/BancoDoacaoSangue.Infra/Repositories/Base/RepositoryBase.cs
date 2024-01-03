@@ -64,20 +64,17 @@ namespace BancoDoacaoSangue.Infra.Repositories.Base
         public async Task<T> AddAsync(T entity)
         {
             await DbContext.Set<T>().AddAsync(entity);
-            await DbContext.SaveChangesAsync();
             return entity;
         }
 
-        public async Task UpdateAsync(T entity)
+        public void UpdateAsync(T entity)
         {
             DbContext.Entry(entity).State = EntityState.Modified;
-            await DbContext.SaveChangesAsync();
         }
 
-        public async Task DeleteAsync(T entity)
+        public void DeleteAsync(T entity)
         {
             DbContext.Set<T>().Remove(entity);
-            await DbContext.SaveChangesAsync();
         }
     }
 }

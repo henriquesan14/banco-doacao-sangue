@@ -11,10 +11,14 @@ namespace BancoDoacaoSangue.API.Extensions
         public static IServiceCollection AddInfrastructure(this IServiceCollection services)
         {
             //Repositories
+            
             services.AddScoped(typeof(IAsyncRepository<>), typeof(RepositoryBase<>));
-            services.AddTransient<IDoadorRepository, DoadorRepository>();
-            services.AddTransient<IDoacaoRepository, DoacaoRepository>();
-        
+            services.AddScoped<IDoadorRepository, DoadorRepository>();
+            services.AddScoped<IDoacaoRepository, DoacaoRepository>();
+            services.AddScoped<IEstoqueSangueRepository, EstoqueSangueRepository>();
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
+
+
 
             return services;
         }

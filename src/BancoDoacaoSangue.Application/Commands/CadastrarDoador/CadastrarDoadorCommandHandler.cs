@@ -10,20 +10,20 @@ namespace BancoDoacaoSangue.Application.Commands.CadastrarDoador
 {
     public class CadastrarDoadorCommandHandler : IRequestHandler<CadastrarDoadorCommand, int>
     {
-        private readonly IDoadorRepository _doadorRepository;
+        private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
         private readonly ICepService _cepService;
 
-        public CadastrarDoadorCommandHandler(IDoadorRepository doadorRepository, IMapper mapper, ICepService cepService)
+        public CadastrarDoadorCommandHandler(IUnitOfWork unitOfWork, IMapper mapper, ICepService cepService)
         {
-            _doadorRepository = doadorRepository;
+            _unitOfWork = unitOfWork;
             _mapper = mapper;
             _cepService = cepService;
         }
 
         public async Task<int> Handle(CadastrarDoadorCommand request, CancellationToken cancellationToken)
         {
-            var doadorExiste = await _doadorRepository.GetAsync(e => e.Email!.Equals(request.Email));
+            var doadorExiste = await _unitOfWork.Doadores.GetAsync(e => e.Email!.Equals(request.Email));
             if (doadorExiste.Any())
             {
                 throw new DoadorJaExisteException("Já existe um doador com este email");
@@ -32,7 +32,8 @@ namespace BancoDoacaoSangue.Application.Commands.CadastrarDoador
 
             var entity = _mapper.Map<Doador>(request);
             entity.Endereco?.SetEnderecoViaCep(responseCep);
-            var result = await _doadorRepository.AddAsync(entity);
+            var result = await _unitOfWork.Doadores.AddAsync(entity);
+            await _unitOfWork.CompleteAsync();
             return result.Id;
         }
     }

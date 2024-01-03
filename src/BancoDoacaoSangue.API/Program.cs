@@ -12,7 +12,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 var connectionString = builder.Configuration.GetConnectionString("DbConnection");
-builder.Services.AddDbContext<DoacaoBancoSangueContext>(options => options.UseSqlServer(connectionString), ServiceLifetime.Transient);
+builder.Services.AddDbContext<DoacaoBancoSangueContext>(options => options.UseSqlServer(connectionString));
 
 builder.Services.AutoMapperConfig();
 builder.Services.AddInfrastructure();
