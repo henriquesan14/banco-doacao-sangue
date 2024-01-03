@@ -1,6 +1,4 @@
-﻿using BancoDoacaoSangue.Core.Entities;
-
-namespace BancoDoacaoSangue.Application.ViewModels
+﻿namespace BancoDoacaoSangue.Application.ViewModels
 {
     public class DoacaoViewModel
     {

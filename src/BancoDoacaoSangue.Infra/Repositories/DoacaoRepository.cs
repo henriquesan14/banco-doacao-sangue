@@ -20,5 +20,15 @@ namespace BancoDoacaoSangue.Infra.Repositories
             .Take(1)
             .ToListAsync();
         }
+
+        public async Task<List<Doacao>> GetRelatorioDoacoes()
+        {
+            return await DbContext.Doacoes
+                .AsNoTracking()
+                .Include(d => d.Doador)
+                .ThenInclude(d => d!.Endereco)
+                .Where(d => d.CriadoEm.Date <= DateTime.Now.Date && d.CriadoEm.Date >= DateTime.Now.AddDays(-30).Date)
+                .ToListAsync();
+        }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using BancoDoacaoSangue.Core.Entities.Base;
+using System.Text.Json.Serialization;
 
 namespace BancoDoacaoSangue.Core.Entities
 {
@@ -29,6 +30,7 @@ namespace BancoDoacaoSangue.Core.Entities
         public decimal? Peso { get; set; }
         public string? TipoSanguineo { get; set; }
         public string? FatorRh { get; set; }
+        [JsonIgnore]
         public IEnumerable<Doacao> Doacoes { get; set; } = new List<Doacao>();
         public virtual Endereco? Endereco { get; set; }
 

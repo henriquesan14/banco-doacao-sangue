@@ -1,4 +1,5 @@
 ﻿using BancoDoacaoSangue.Application.Commands.CadastrarDoacao;
+using BancoDoacaoSangue.Application.Queries.RelatorioDoacoes;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -20,6 +21,14 @@ namespace BancoDoacaoSangue.API.Controllers
         {
             await _mediator.Send(command);
             return Ok();
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> RelatorioDoacoes()
+        {
+            var query = new RelatorioDoacoesQuery();
+            var result = await _mediator.Send(query);
+            return Ok(result);
         }
     }
 }

@@ -11,6 +11,7 @@ namespace BancoDoacaoSangue.Application.Mappers
         {
             CreateMap<CadastrarDoacaoCommand, Doacao>().ReverseMap();
             CreateMap<DoacaoViewModel, Doacao>().ReverseMap();
+            CreateMap<RelatorioDoacaoViewModel, Doacao>().ReverseMap();
         }
     }
 }

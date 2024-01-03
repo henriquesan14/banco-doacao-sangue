@@ -1,5 +1,6 @@
 ﻿using BancoDoacaoSangue.Core.DTOs;
 using BancoDoacaoSangue.Core.Entities.Base;
+using System.Text.Json.Serialization;
 
 namespace BancoDoacaoSangue.Core.Entities
 {
@@ -22,6 +23,7 @@ namespace BancoDoacaoSangue.Core.Entities
         public string? Cidade { get; set; }
         public string? Estado { get; set; }
         public string? Cep { get; set; }
+        [JsonIgnore]
         public virtual Doador? Doador { get; set; }
 
         public void SetEnderecoViaCep(ResponseCepDto responseCep)
