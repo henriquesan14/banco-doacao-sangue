@@ -12,16 +12,18 @@ namespace BancoDoacaoSangue.Infra.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Endereco",
+                name: "Doador",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Logradouro = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Cidade = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Estado = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Cep = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    DoadorId = table.Column<int>(type: "int", nullable: false),
+                    NomeCompleto = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
+                    Email = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    DataNascimento = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Genero = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    Peso = table.Column<decimal>(type: "decimal(5,2)", precision: 5, scale: 2, nullable: false),
+                    TipoSanguineo = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: false),
+                    FatorRh = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: false),
                     CriadoPor = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CriadoEm = table.Column<DateTime>(type: "datetime2", nullable: false),
                     AtualizadoPor = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -29,7 +31,7 @@ namespace BancoDoacaoSangue.Infra.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Endereco", x => x.Id);
+                    table.PrimaryKey("PK_Doador", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -38,9 +40,9 @@ namespace BancoDoacaoSangue.Infra.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    TipoSanguineo = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    FatorRh = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    QuantidadeMl = table.Column<int>(type: "int", nullable: false),
+                    TipoSanguineo = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: false),
+                    FatorRh = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: false),
+                    QuantidadeMl = table.Column<int>(type: "int", maxLength: 3, nullable: false),
                     CriadoPor = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CriadoEm = table.Column<DateTime>(type: "datetime2", nullable: false),
                     AtualizadoPor = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -52,43 +54,13 @@ namespace BancoDoacaoSangue.Infra.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Doador",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    NomeCompleto = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    DataNascimento = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Genero = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Peso = table.Column<decimal>(type: "decimal(3,2)", precision: 3, scale: 2, nullable: false),
-                    TipoSanguineo = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    FatorRh = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    EnderecoId = table.Column<int>(type: "int", nullable: false),
-                    CriadoPor = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    CriadoEm = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    AtualizadoPor = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    AtualizadoEm = table.Column<DateTime>(type: "datetime2", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Doador", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Doador_Endereco_EnderecoId",
-                        column: x => x.EnderecoId,
-                        principalTable: "Endereco",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Doacao",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     DoadorId = table.Column<int>(type: "int", nullable: false),
-                    QuantidadeMl = table.Column<int>(type: "int", nullable: false),
+                    QuantidadeMl = table.Column<int>(type: "int", maxLength: 3, nullable: false),
                     CriadoPor = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CriadoEm = table.Column<DateTime>(type: "datetime2", nullable: false),
                     AtualizadoPor = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -105,16 +77,35 @@ namespace BancoDoacaoSangue.Infra.Migrations
                         onDelete: ReferentialAction.Restrict);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "Endereco",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false),
+                    Logradouro = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    Cidade = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    Estado = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    Cep = table.Column<string>(type: "nvarchar(8)", maxLength: 8, nullable: false),
+                    CriadoPor = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CriadoEm = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    AtualizadoPor = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    AtualizadoEm = table.Column<DateTime>(type: "datetime2", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Endereco", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Endereco_Doador_Id",
+                        column: x => x.Id,
+                        principalTable: "Doador",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_Doacao_DoadorId",
                 table: "Doacao",
                 column: "DoadorId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Doador_EnderecoId",
-                table: "Doador",
-                column: "EnderecoId",
-                unique: true);
         }
 
         /// <inheritdoc />
@@ -124,13 +115,13 @@ namespace BancoDoacaoSangue.Infra.Migrations
                 name: "Doacao");
 
             migrationBuilder.DropTable(
+                name: "Endereco");
+
+            migrationBuilder.DropTable(
                 name: "EstoqueSangue");
 
             migrationBuilder.DropTable(
                 name: "Doador");
-
-            migrationBuilder.DropTable(
-                name: "Endereco");
         }
     }
 }

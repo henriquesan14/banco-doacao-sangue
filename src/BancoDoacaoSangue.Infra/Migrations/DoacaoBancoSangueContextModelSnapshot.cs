@@ -47,6 +47,7 @@ namespace BancoDoacaoSangue.Infra.Migrations
 
                     b.Property<int?>("QuantidadeMl")
                         .IsRequired()
+                        .HasMaxLength(3)
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -82,36 +83,35 @@ namespace BancoDoacaoSangue.Infra.Migrations
 
                     b.Property<string>("Email")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("EnderecoId")
-                        .HasColumnType("int");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("FatorRh")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)");
 
                     b.Property<string>("Genero")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("NomeCompleto")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
 
                     b.Property<decimal?>("Peso")
                         .IsRequired()
-                        .HasPrecision(3, 2)
-                        .HasColumnType("decimal(3,2)");
+                        .HasPrecision(5, 2)
+                        .HasColumnType("decimal(5,2)");
 
                     b.Property<string>("TipoSanguineo")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("EnderecoId")
-                        .IsUnique();
 
                     b.ToTable("Doador", (string)null);
                 });
@@ -119,10 +119,7 @@ namespace BancoDoacaoSangue.Infra.Migrations
             modelBuilder.Entity("BancoDoacaoSangue.Core.Entities.Endereco", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime?>("AtualizadoEm")
                         .HasColumnType("datetime2");
@@ -132,11 +129,13 @@ namespace BancoDoacaoSangue.Infra.Migrations
 
                     b.Property<string>("Cep")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(8)
+                        .HasColumnType("nvarchar(8)");
 
                     b.Property<string>("Cidade")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<DateTime>("CriadoEm")
                         .HasColumnType("datetime2");
@@ -144,16 +143,15 @@ namespace BancoDoacaoSangue.Infra.Migrations
                     b.Property<string>("CriadoPor")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("DoadorId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Estado")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("Logradouro")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.HasKey("Id");
 
@@ -182,15 +180,18 @@ namespace BancoDoacaoSangue.Infra.Migrations
 
                     b.Property<string>("FatorRh")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)");
 
                     b.Property<int?>("QuantidadeMl")
                         .IsRequired()
+                        .HasMaxLength(3)
                         .HasColumnType("int");
 
                     b.Property<string>("TipoSanguineo")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)");
 
                     b.HasKey("Id");
 
@@ -208,26 +209,22 @@ namespace BancoDoacaoSangue.Infra.Migrations
                     b.Navigation("Doador");
                 });
 
-            modelBuilder.Entity("BancoDoacaoSangue.Core.Entities.Doador", b =>
+            modelBuilder.Entity("BancoDoacaoSangue.Core.Entities.Endereco", b =>
                 {
-                    b.HasOne("BancoDoacaoSangue.Core.Entities.Endereco", "Endereco")
-                        .WithOne("Doador")
-                        .HasForeignKey("BancoDoacaoSangue.Core.Entities.Doador", "EnderecoId")
+                    b.HasOne("BancoDoacaoSangue.Core.Entities.Doador", "Doador")
+                        .WithOne("Endereco")
+                        .HasForeignKey("BancoDoacaoSangue.Core.Entities.Endereco", "Id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Endereco");
+                    b.Navigation("Doador");
                 });
 
             modelBuilder.Entity("BancoDoacaoSangue.Core.Entities.Doador", b =>
                 {
                     b.Navigation("Doacoes");
-                });
 
-            modelBuilder.Entity("BancoDoacaoSangue.Core.Entities.Endereco", b =>
-                {
-                    b.Navigation("Doador")
-                        .IsRequired();
+                    b.Navigation("Endereco");
                 });
 #pragma warning restore 612, 618
         }

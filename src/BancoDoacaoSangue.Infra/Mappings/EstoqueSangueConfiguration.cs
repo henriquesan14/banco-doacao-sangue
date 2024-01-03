@@ -10,9 +10,15 @@ namespace BancoDoacaoSangue.Infra.Mappings
         {
             builder.ToTable("EstoqueSangue");
             builder.HasKey(e => e.Id);
-            builder.Property(e => e.QuantidadeMl).IsRequired();
-            builder.Property(e => e.FatorRh).IsRequired();
-            builder.Property(e => e.TipoSanguineo).IsRequired();
+            builder.Property(e => e.QuantidadeMl)
+                .IsRequired()
+                .HasMaxLength(3);
+            builder.Property(e => e.FatorRh)
+                .IsRequired()
+                .HasMaxLength(10);
+            builder.Property(e => e.TipoSanguineo)
+                .IsRequired()
+                .HasMaxLength(10);
         }
     }
 }

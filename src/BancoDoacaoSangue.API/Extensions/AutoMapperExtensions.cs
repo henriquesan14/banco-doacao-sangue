@@ -10,6 +10,7 @@ namespace BancoDoacaoSangue.API.Extensions
             var config = new AutoMapper.MapperConfiguration(cfg =>
             {
                 cfg.AddProfile<DoacaoMapper>();
+                cfg.AddProfile<DoadorMapper>();
             });
             IMapper mapper = config.CreateMapper();
             services.AddSingleton(mapper);

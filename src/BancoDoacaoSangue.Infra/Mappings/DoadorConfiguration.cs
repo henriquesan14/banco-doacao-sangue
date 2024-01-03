@@ -11,28 +11,32 @@ namespace BancoDoacaoSangue.Infra.Mappings
             builder.ToTable("Doador");
             builder.HasKey(d => d.Id);
             builder.Property(d => d.NomeCompleto)
-                .IsRequired();
+                .IsRequired()
+                .HasMaxLength(200);
             builder.Property(d => d.Email)
-                .IsRequired();
+                .IsRequired()
+                .HasMaxLength(100);
             builder.Property(d => d.DataNascimento)
                 .IsRequired();
             builder.Property(d => d.Genero)
-                .IsRequired();
+                .IsRequired()
+                .HasMaxLength(50);
             builder.Property(d => d.Peso)
                 .IsRequired()
-                .HasPrecision(3, 2);
+                .HasPrecision(5, 2);
             builder.Property(d => d.TipoSanguineo)
-                .IsRequired();
+                .IsRequired()
+                .HasMaxLength(10);
             builder.Property(d => d.FatorRh)
-                .IsRequired();
+                .IsRequired()
+                .HasMaxLength(10);
             builder.HasMany(d => d.Doacoes)
                 .WithOne(d => d.Doador)
                 .HasForeignKey(o => o.DoadorId)
                 .OnDelete(DeleteBehavior.Restrict);
             builder.HasOne(d => d.Endereco)
-            .WithOne(e => e.Doador)
-                .HasForeignKey<Endereco>(e => e.DoadorId)
-                .IsRequired();
+                .WithOne(e => e.Doador)
+                .HasForeignKey<Endereco>(e => e.Id);
         }
     }
 }

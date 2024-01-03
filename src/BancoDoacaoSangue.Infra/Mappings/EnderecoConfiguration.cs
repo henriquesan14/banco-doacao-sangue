@@ -11,18 +11,17 @@ namespace BancoDoacaoSangue.Infra.Mappings
             builder.ToTable("Endereco");
             builder.HasKey(e => e.Id);
             builder.Property(d => d.Logradouro)
-                .IsRequired();
+                .IsRequired()
+                .HasMaxLength(100);
             builder.Property(d => d.Cidade)
-                .IsRequired();
+                .IsRequired()
+                .HasMaxLength(100);
             builder.Property(d => d.Estado)
-                .IsRequired();
+                .IsRequired()
+                .HasMaxLength(100);
             builder.Property(d => d.Cep)
-                .IsRequired();
-            
-            builder.HasOne(d => d.Doador)
-            .WithOne(e => e.Endereco)
-                .HasForeignKey<Doador>(e => e.EnderecoId)
-                .IsRequired();
+                .IsRequired()
+                .HasMaxLength(8);
         }
     }
 }

@@ -9,7 +9,7 @@ namespace BancoDoacaoSangue.Core.Entities
             
         }
         public Doador(string? nomeCompleto, string? email, DateTime? dataNascimento, string? genero,
-            decimal? peso, string? tipoSanguineo, string? fatorRh, IEnumerable<Doacao> doacoes, Endereco? endereco, int enderecoId)
+            decimal? peso, string? tipoSanguineo, string? fatorRh, IEnumerable<Doacao> doacoes, Endereco? endereco)
         {
             NomeCompleto = nomeCompleto;
             Email = email;
@@ -20,7 +20,6 @@ namespace BancoDoacaoSangue.Core.Entities
             FatorRh = fatorRh;
             Doacoes = doacoes;
             Endereco = endereco;
-            EnderecoId = enderecoId;
         }
 
         public string? NomeCompleto { get; set; }
@@ -31,8 +30,7 @@ namespace BancoDoacaoSangue.Core.Entities
         public string? TipoSanguineo { get; set; }
         public string? FatorRh { get; set; }
         public IEnumerable<Doacao> Doacoes { get; set; } = new List<Doacao>();
-        public Endereco? Endereco { get; set; }
-        public int EnderecoId { get; set; }
+        public virtual Endereco? Endereco { get; set; }
 
         public bool MenorDeIdade {
             get

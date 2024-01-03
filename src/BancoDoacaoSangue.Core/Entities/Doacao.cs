@@ -15,7 +15,7 @@ namespace BancoDoacaoSangue.Core.Entities
             QuantidadeMl = quantidadeMl;
         }
 
-        public Doador? Doador { get; set; }
+        public virtual Doador? Doador { get; set; }
         public int DoadorId { get; set; }
         public int? QuantidadeMl { get; set; }
     }
