@@ -23,10 +23,11 @@ namespace BancoDoacaoSangue.Infra.Repositories
         public async Task<List<RelatorioEstoqueSangueDto>> GetByQuantidadePorTipoSanguineo()
         {
             var gruposPorTipoSanguineo = await DbContext.EstoqueSangue.AsNoTracking()
-            .GroupBy(item => item.TipoSanguineo)
+            .GroupBy(item => new { item.TipoSanguineo, item.FatorRh})
             .Select(grupo => new RelatorioEstoqueSangueDto
             {
-                TipoSanguineo = grupo.Key!,
+                TipoSanguineo = grupo.Key.TipoSanguineo!,
+                FatorRh = grupo.Key.FatorRh!,
                 Quantidade = grupo.Count() // Aqui você pode usar outras funções de agregação se necessário
             }).ToListAsync();
             return gruposPorTipoSanguineo;

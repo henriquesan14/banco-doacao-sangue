@@ -3,6 +3,7 @@
     public class RelatorioEstoqueSangueDto
     {
         public string TipoSanguineo { get; set; }
+        public string FatorRh { get; set; }
         public int Quantidade { get; set; }
     }
 }
