@@ -28,7 +28,7 @@ namespace BancoDoacaoSangue.Infra.Repositories
             {
                 TipoSanguineo = grupo.Key.TipoSanguineo!,
                 FatorRh = grupo.Key.FatorRh!,
-                Quantidade = grupo.Count() // Aqui você pode usar outras funções de agregação se necessário
+                TotalMl = grupo.Sum(r => r.QuantidadeMl) // Aqui você pode usar outras funções de agregação se necessário
             }).ToListAsync();
             return gruposPorTipoSanguineo;
         }
