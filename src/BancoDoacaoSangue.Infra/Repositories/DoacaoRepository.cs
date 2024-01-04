@@ -17,6 +17,7 @@ namespace BancoDoacaoSangue.Infra.Repositories
             return await DbContext.Set<Doacao>()
             .AsNoTracking()
             .Where(d => d.DoadorId == doadorId)
+            .OrderByDescending(d => d.CriadoEm)
             .Take(1)
             .ToListAsync();
         }

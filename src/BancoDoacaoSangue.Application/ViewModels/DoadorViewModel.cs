@@ -4,18 +4,7 @@ namespace BancoDoacaoSangue.Application.ViewModels
 {
     public class DoadorViewModel
     {
-        public DoadorViewModel(string? nomeCompleto, string? email, DateTime? dataNascimento, string? genero, decimal? peso, string? tipoSanguineo, string? fatorRh, Endereco? endereco)
-        {
-            NomeCompleto = nomeCompleto;
-            Email = email;
-            DataNascimento = dataNascimento;
-            Genero = genero;
-            Peso = peso;
-            TipoSanguineo = tipoSanguineo;
-            FatorRh = fatorRh;
-            Endereco = endereco;
-        }
-
+        public int Id { get; set; }
         public string? NomeCompleto { get; set; }
         public string? Email { get; set; }
         public DateTime? DataNascimento { get; set; }
