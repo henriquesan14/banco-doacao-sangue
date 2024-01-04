@@ -3,6 +3,7 @@ using BancoDoacaoSangue.Application.Commands.CadastrarDoador;
 using BancoDoacaoSangue.Application.Mappers;
 using BancoDoacaoSangue.Core.DTOs;
 using BancoDoacaoSangue.Core.Entities;
+using BancoDoacaoSangue.Core.Exceptions;
 using BancoDoacaoSangue.Core.Repositories;
 using BancoDoacaoSangue.Infra.Services;
 using Moq;
@@ -82,5 +83,40 @@ namespace BancoDoacaoSangue.Tests.Commands
             _mockDoadorRepository.Verify(or => or.AddAsync(It.IsAny<Doador>()), Times.Once);
 
         }
+
+        [Fact]
+        public async Task CreateDoador_Executed_ThrowDoadorJaExisteException()
+        {
+            // Arrange
+
+            var doador = new Doador
+            {
+                NomeCompleto = "teste",
+                Email = "teste@gmail.com",
+                DataNascimento = new DateTime(1997, 6, 1),
+                Genero = "M",
+                Peso = 65,
+                TipoSanguineo = "B",
+                FatorRh = "positivo"
+            };
+            IReadOnlyList<Doador> list = new List<Doador>() {
+                doador
+            };
+
+            var cadastrarDoadorCommand = new CadastrarDoadorCommand("teste", "teste@gmail.com", new DateTime(1997, 6, 1), "M", 65, "B", "positivo", "58328000");
+
+            _mockDoadorRepository.Setup(pr => pr.GetAsync(It.IsAny<Expression<Func<Doador, bool>>>())).ReturnsAsync(list);
+
+
+            //Act
+
+            var command = new CadastrarDoadorCommandHandler(_mockUnitOfWork.Object, _mapper, _mockCepService.Object);
+
+            // Assert
+            await Assert.ThrowsAsync<DoadorJaExisteException>(async () => await command.Handle(cadastrarDoadorCommand, new CancellationToken()));
+            _mockDoadorRepository.Verify(pr => pr.GetAsync(It.IsAny<Expression<Func<Doador, bool>>>()), Times.Once);
+
+        }
+
     }
 }
