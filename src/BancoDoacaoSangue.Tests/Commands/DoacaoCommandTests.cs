@@ -1,19 +1,10 @@
 ﻿using AutoMapper;
 using BancoDoacaoSangue.Application.Commands.CadastrarDoacao;
-using BancoDoacaoSangue.Application.Commands.CadastrarDoador;
 using BancoDoacaoSangue.Application.Mappers;
-using BancoDoacaoSangue.Core.DTOs;
 using BancoDoacaoSangue.Core.Entities;
 using BancoDoacaoSangue.Core.Exceptions;
 using BancoDoacaoSangue.Core.Repositories;
-using BancoDoacaoSangue.Infra.Services;
 using Moq;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
 using Xunit;
 
 namespace BancoDoacaoSangue.Tests.Commands
