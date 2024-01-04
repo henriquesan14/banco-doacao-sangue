@@ -1,5 +1,6 @@
 ﻿using BancoDoacaoSangue.Application.Commands.CadastrarDoacao;
 using BancoDoacaoSangue.Application.Queries.RelatorioDoacoes;
+using BancoDoacaoSangue.Application.ViewModels;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -16,6 +17,10 @@ namespace BancoDoacaoSangue.API.Controllers
             _mediator = mediator;
         }
 
+        [ProducesResponseType<List<DoacaoViewModel>>(StatusCodes.Status200OK)]
+        [ProducesResponseType<List<DoacaoViewModel>>(StatusCodes.Status404NotFound)]
+        [ProducesResponseType<List<DoacaoViewModel>>(StatusCodes.Status200OK)]
+        [ProducesResponseType<List<DoacaoViewModel>>(StatusCodes.Status400BadRequest)]
         [HttpPost]
         public async Task<IActionResult> Cadastrar([FromBody] CadastrarDoacaoCommand command)
         {
@@ -23,6 +28,7 @@ namespace BancoDoacaoSangue.API.Controllers
             return Ok();
         }
 
+        [ProducesResponseType<List<RelatorioDoacaoViewModel>>(StatusCodes.Status200OK)]
         [HttpGet]
         public async Task<IActionResult> RelatorioDoacoes()
         {

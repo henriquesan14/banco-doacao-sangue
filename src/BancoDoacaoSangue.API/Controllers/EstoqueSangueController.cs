@@ -1,4 +1,5 @@
 ﻿using BancoDoacaoSangue.Application.Queries.RelatorioEstoqueSangue;
+using BancoDoacaoSangue.Core.DTOs;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -15,6 +16,7 @@ namespace BancoDoacaoSangue.API.Controllers
             _mediator = mediator;
         }
 
+        [ProducesResponseType<List<RelatorioEstoqueSangueDto>>(StatusCodes.Status200OK)]
         [HttpGet]
         public async Task<IActionResult> RelatorioEstoqueSangue()
         {
