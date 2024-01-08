@@ -2,6 +2,7 @@
 using BancoDoacaoSangue.Application.Commands.CadastrarDoador;
 using BancoDoacaoSangue.Application.Queries.BuscarDoador;
 using BancoDoacaoSangue.Application.Queries.BuscarDoadores;
+using BancoDoacaoSangue.Application.Queries.BuscarDoadorPorId;
 using BancoDoacaoSangue.Application.ViewModels;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -57,6 +58,16 @@ namespace BancoDoacaoSangue.API.Controllers
         {
             await _mediator.Send(command);
             return NoContent();
+        }
+
+        [ProducesResponseType<DoacaoViewModel>(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [HttpGet("{id}")]
+        public async Task<IActionResult> BuscarDoador(int id)
+        {
+            var query = new BuscarDoadorPorIdQuery(id);
+            var result = await _mediator.Send(query);
+            return Ok(result);
         }
 
     }
