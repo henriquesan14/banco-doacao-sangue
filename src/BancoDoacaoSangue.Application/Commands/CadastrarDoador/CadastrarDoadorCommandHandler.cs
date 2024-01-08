@@ -24,7 +24,7 @@ namespace BancoDoacaoSangue.Application.Commands.CadastrarDoador
         public async Task<int> Handle(CadastrarDoadorCommand request, CancellationToken cancellationToken)
         {
             var doadorExiste = await _unitOfWork.Doadores.GetByEmail(request.Email!);
-            if (doadorExiste == null)
+            if (doadorExiste != null)
             {
                 throw new DoadorJaExisteException("Já existe um doador com este email");
             }

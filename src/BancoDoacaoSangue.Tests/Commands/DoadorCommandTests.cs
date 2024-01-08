@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using BancoDoacaoSangue.Application.Commands.AtualizaDoador;
 using BancoDoacaoSangue.Application.Commands.CadastrarDoador;
 using BancoDoacaoSangue.Application.Mappers;
 using BancoDoacaoSangue.Core.DTOs;
@@ -67,7 +68,6 @@ namespace BancoDoacaoSangue.Tests.Commands
 
             
             _mockCepService.Setup(cs => cs.BuscaCep(It.IsAny<string>())).ReturnsAsync(responseCep);
-            _mockDoadorRepository.Setup(pr => pr.GetAsync(It.IsAny<Expression<Func<Doador, bool>>>())).ReturnsAsync(new List<Doador>());
             _mockDoadorRepository.Setup(pr => pr.AddAsync(It.IsAny<Doador>())).ReturnsAsync(doador);
             
 
@@ -79,7 +79,6 @@ namespace BancoDoacaoSangue.Tests.Commands
             // Assert
         
             _mockCepService.Verify(cs => cs.BuscaCep(It.IsAny<string>()), Times.Once());
-            _mockDoadorRepository.Verify(pr => pr.GetAsync(It.IsAny<Expression<Func<Doador, bool>>>()), Times.Once);
             _mockDoadorRepository.Verify(or => or.AddAsync(It.IsAny<Doador>()), Times.Once);
 
         }
@@ -105,7 +104,7 @@ namespace BancoDoacaoSangue.Tests.Commands
 
             var cadastrarDoadorCommand = new CadastrarDoadorCommand("teste", "teste@gmail.com", new DateTime(1997, 6, 1), "M", 65, "B", "positivo", "58328000");
 
-            _mockDoadorRepository.Setup(pr => pr.GetAsync(It.IsAny<Expression<Func<Doador, bool>>>())).ReturnsAsync(list);
+            _mockDoadorRepository.Setup(pr => pr.GetByEmail(It.IsAny<string>())).ReturnsAsync(doador);
 
 
             //Act
@@ -114,7 +113,73 @@ namespace BancoDoacaoSangue.Tests.Commands
 
             // Assert
             await Assert.ThrowsAsync<DoadorJaExisteException>(async () => await command.Handle(cadastrarDoadorCommand, new CancellationToken()));
-            _mockDoadorRepository.Verify(pr => pr.GetAsync(It.IsAny<Expression<Func<Doador, bool>>>()), Times.Once);
+            _mockDoadorRepository.Verify(pr => pr.GetByEmail(It.IsAny<string>()), Times.Once);
+
+        }
+
+
+        [Fact]
+        public async Task UpdateDoador_Executed_ReturnSuccess()
+        {
+            // Arrange
+
+            var doador = new Doador
+            {
+                NomeCompleto = "teste",
+                Email = "teste@gmail.com",
+                DataNascimento = new DateTime(1997, 6, 1),
+                Genero = "M",
+                Peso = 65,
+                TipoSanguineo = "B",
+                FatorRh = "positivo",
+                Endereco = new Endereco
+                {
+                    Cep = "000000000",
+                    Cidade = "cidade",
+                    Estado = "estado",
+                    Logradouro = "logradouro"
+                }
+            };
+
+            var responseCep = new ResponseCepDto
+            {
+                Logradouro = "teste",
+                Localidade = "cidade",
+                Uf = "PB"
+            };
+
+            var atualizaDoadorCommand = new AtualizaDoadorCommand(0,"teste", "teste@gmail.com", new DateTime(1997, 6, 1), "M", 65, "B", "positivo", "58328000");
+
+            _mockDoadorRepository.Setup(dr => dr.GetByIdIncludeEndereco(It.IsAny<int>())).ReturnsAsync(doador);
+            _mockCepService.Setup(cs => cs.BuscaCep(It.IsAny<string>())).ReturnsAsync(responseCep);
+            _mockDoadorRepository.Setup(pr => pr.AddAsync(It.IsAny<Doador>())).ReturnsAsync(doador);
+
+
+            //Act
+
+            var command = new AtualizaDoadorCommandHandler(_mockUnitOfWork.Object, _mockCepService.Object);
+            await command.Handle(atualizaDoadorCommand, new CancellationToken());
+
+            // Assert
+
+            _mockDoadorRepository.Verify(or => or.GetByIdIncludeEndereco(It.IsAny<int>()), Times.Once);
+            _mockCepService.Verify(cs => cs.BuscaCep(It.IsAny<string>()), Times.Once());
+            _mockDoadorRepository.Verify(or => or.UpdateAsync(It.IsAny<Doador>()), Times.Once);
+
+        }
+
+        [Fact]
+        public async Task UpdateDoador_Executed_ThrowNotFoundException()
+        {
+
+            var atualizaDoadorCommand = new AtualizaDoadorCommand(0, "teste", "teste@gmail.com", new DateTime(1997, 6, 1), "M", 65, "B", "positivo", "58328000");
+
+            //Act
+
+            var command = new AtualizaDoadorCommandHandler(_mockUnitOfWork.Object, _mockCepService.Object);
+
+            // Assert
+            await Assert.ThrowsAsync<NotFoundException>(async () => await command.Handle(atualizaDoadorCommand, new CancellationToken()));
 
         }
 
