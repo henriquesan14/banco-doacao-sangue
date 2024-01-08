@@ -1,4 +1,5 @@
-﻿using BancoDoacaoSangue.Application.Commands.CadastrarDoador;
+﻿using BancoDoacaoSangue.Application.Commands.AtualizaDoador;
+using BancoDoacaoSangue.Application.Commands.CadastrarDoador;
 using BancoDoacaoSangue.Application.Queries.BuscarDoador;
 using BancoDoacaoSangue.Application.Queries.BuscarDoadores;
 using BancoDoacaoSangue.Application.ViewModels;
@@ -46,5 +47,17 @@ namespace BancoDoacaoSangue.API.Controllers
             var result = await _mediator.Send(query);
             return Ok(result);
         }
+
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status409Conflict)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [HttpPut]
+        public async Task<IActionResult> AtualizaDoador(AtualizaDoadorCommand command)
+        {
+            await _mediator.Send(command);
+            return NoContent();
+        }
+
     }
 }

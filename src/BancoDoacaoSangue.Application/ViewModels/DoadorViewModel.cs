@@ -13,5 +13,6 @@ namespace BancoDoacaoSangue.Application.ViewModels
         public string? TipoSanguineo { get; set; }
         public string? FatorRh { get; set; }
         public virtual Endereco? Endereco { get; set; }
+        public DateTime CriadoEm { get; set; }
     }
 }

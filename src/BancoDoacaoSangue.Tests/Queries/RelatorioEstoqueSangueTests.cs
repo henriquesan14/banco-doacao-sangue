@@ -25,22 +25,22 @@ namespace BancoDoacaoSangue.Tests.Queries
             var listEstoqueSangue = new List<RelatorioEstoqueSangueDto>() {
                 new RelatorioEstoqueSangueDto
                 {
-                    Quantidade = 2,
+                    TotalMl = 500,
                     TipoSanguineo = "A"
                 },
                 new RelatorioEstoqueSangueDto
                 {
-                    Quantidade = 3,
+                    TotalMl = 1000,
                     TipoSanguineo = "B"
                 },
                 new RelatorioEstoqueSangueDto
                 {
-                    Quantidade = 10,
+                    TotalMl = 2000,
                     TipoSanguineo = "AB"
                 },
                 new RelatorioEstoqueSangueDto
                 {
-                    Quantidade = 1,
+                    TotalMl = 3000,
                     TipoSanguineo = "O"
                 },
             };
