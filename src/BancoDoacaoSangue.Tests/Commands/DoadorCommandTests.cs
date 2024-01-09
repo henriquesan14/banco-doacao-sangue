@@ -157,7 +157,7 @@ namespace BancoDoacaoSangue.Tests.Commands
 
             //Act
 
-            var command = new AtualizaDoadorCommandHandler(_mockUnitOfWork.Object, _mockCepService.Object);
+            var command = new AtualizaDoadorCommandHandler(_mockUnitOfWork.Object, _mockCepService.Object, _mapper);
             await command.Handle(atualizaDoadorCommand, new CancellationToken());
 
             // Assert
@@ -176,7 +176,7 @@ namespace BancoDoacaoSangue.Tests.Commands
 
             //Act
 
-            var command = new AtualizaDoadorCommandHandler(_mockUnitOfWork.Object, _mockCepService.Object);
+            var command = new AtualizaDoadorCommandHandler(_mockUnitOfWork.Object, _mockCepService.Object, _mapper);
 
             // Assert
             await Assert.ThrowsAsync<NotFoundException>(async () => await command.Handle(atualizaDoadorCommand, new CancellationToken()));

@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using BancoDoacaoSangue.Application.Commands.AtualizaDoador;
 using BancoDoacaoSangue.Application.Commands.CadastrarDoador;
 using BancoDoacaoSangue.Application.ViewModels;
 using BancoDoacaoSangue.Core.Entities;
@@ -15,7 +16,8 @@ namespace BancoDoacaoSangue.Application.Mappers
                 {
                     Cep = src.Cep,
                 })).ReverseMap();
-            CreateMap<Doador, DoadorViewModel>();
+            CreateMap<Doador, DoadorViewModel>().ReverseMap();
+            CreateMap<AtualizaDoadorCommand, Doador>().ReverseMap();
         }
     }
 }

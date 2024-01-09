@@ -1,4 +1,5 @@
-﻿using BancoDoacaoSangue.Core.DTOs;
+﻿using AutoMapper;
+using BancoDoacaoSangue.Core.DTOs;
 using BancoDoacaoSangue.Core.Exceptions;
 using BancoDoacaoSangue.Core.Repositories;
 using BancoDoacaoSangue.Infra.Services;
@@ -10,11 +11,13 @@ namespace BancoDoacaoSangue.Application.Commands.AtualizaDoador
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly ICepService _cepService;
+        private readonly IMapper _mapper;
 
-        public AtualizaDoadorCommandHandler(IUnitOfWork unitOfWork, ICepService cepService)
+        public AtualizaDoadorCommandHandler(IUnitOfWork unitOfWork, ICepService cepService, IMapper mapper)
         {
             _unitOfWork = unitOfWork;
             _cepService = cepService;
+            _mapper = mapper;
         }
 
         public async Task Handle(AtualizaDoadorCommand request, CancellationToken cancellationToken)
@@ -29,6 +32,7 @@ namespace BancoDoacaoSangue.Application.Commands.AtualizaDoador
             {
                 throw new DoadorJaExisteException("Já existe um doador com este email");
             }
+            _mapper.Map(request, doador);
             if(doador.Endereco?.Cep != request.Cep)
             {
                 ResponseCepDto responseCep = await _cepService.BuscaCep(request.Cep!);
